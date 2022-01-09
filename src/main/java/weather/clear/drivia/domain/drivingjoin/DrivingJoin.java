@@ -3,6 +3,7 @@ package weather.clear.drivia.domain.drivingjoin;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import weather.clear.drivia.domain.driving.Driving;
+import weather.clear.drivia.domain.member.Member;
 
 import javax.persistence.*;
 
@@ -23,9 +24,9 @@ public class DrivingJoin {
     @JoinColumn(name = "driving_id")
     private Driving driving;
 
-//    @ManyToOne(fetch = LAZY)
-//    @JoinColumn(name = "driver_id")
-//    private Member member;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "driver_id")
+    private Member member;
 
     @Enumerated(STRING)
     private DrivingJoinStatus status;

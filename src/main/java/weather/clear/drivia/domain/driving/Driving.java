@@ -3,6 +3,7 @@ package weather.clear.drivia.domain.driving;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import weather.clear.drivia.domain.member.Member;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,9 +20,9 @@ public class Driving {
     @Column(name = "driving_id")
     private Long id;
 
-//    @ManyToOne(fetch = LAZY)
-//    @JoinColumn(name = "owner_id")
-//    private Member member;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "owner_id")
+    private Member member;
 
     private LocalDateTime departDateTime;
 
