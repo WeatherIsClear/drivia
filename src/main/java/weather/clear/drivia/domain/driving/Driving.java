@@ -3,7 +3,7 @@ package weather.clear.drivia.domain.driving;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import weather.clear.drivia.domain.member.Member;
+import weather.clear.drivia.domain.member.entity.Member;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

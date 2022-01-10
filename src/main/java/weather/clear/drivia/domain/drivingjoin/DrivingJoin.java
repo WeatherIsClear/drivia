@@ -3,7 +3,7 @@ package weather.clear.drivia.domain.drivingjoin;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import weather.clear.drivia.domain.driving.Driving;
-import weather.clear.drivia.domain.member.Member;
+import weather.clear.drivia.domain.member.entity.Member;
 
 import javax.persistence.*;
 
