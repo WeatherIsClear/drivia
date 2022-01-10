@@ -1,8 +1,10 @@
 package weather.clear.drivia.domain.car;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import weather.clear.drivia.domain.car.dto.RegistrationCarDto;
 import weather.clear.drivia.domain.carmodel.CarModel;
 import weather.clear.drivia.domain.member.entity.Member;
 
@@ -35,4 +37,20 @@ public class Car {
     @JoinColumn(name = "car_model_id")
     private CarModel carModel;
 
+    @Builder
+    private Car(Member member, String carNumber, LocalDate registrationDate, CarModel carModel) {
+        this.member = member;
+        this.carNumber = carNumber;
+        this.registrationDate = registrationDate;
+        this.carModel = carModel;
+    }
+
+    public static Car of(Member member, RegistrationCarDto request) {
+        return Car.builder()
+                .member(member)
+                .carNumber(request.getCarNumber())
+                .registrationDate(request.getRegistrationDate())
+                .carModel(CarModel.of(request))
+                .build();
+    }
 }

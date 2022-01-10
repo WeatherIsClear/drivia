@@ -6,6 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import weather.clear.drivia.domain.member.dto.MemberSignUpDto;
+import weather.clear.drivia.domain.member.entity.Gender;
 import weather.clear.drivia.domain.member.entity.Member;
 
 import java.time.LocalDate;
@@ -19,21 +20,16 @@ class MemberServiceTest {
     @Mock
     MemberRepository memberRepository;
 
-    @InjectMocks
-    MemberService memberService;
-
-    /**
-     * 아니 시발 테스트 어떻게하지?
-     */
     @Test
     void checkDuplicateEmail() {
+
         MemberSignUpDto dto = MemberSignUpDto.builder()
                 .username("김동영")
                 .password("1234")
                 .email("yeongdonge@gmail.com")
                 .birth(LocalDate.of(1998, 2, 9))
                 .nickname("yeongdonge")
-                .gender("MALE")
+                .gender(1)
                 .phone("01012341256")
                 .build();
 
@@ -53,7 +49,7 @@ class MemberServiceTest {
                 .email("yeongdonge@gmail.com")
                 .birth(LocalDate.of(1998, 2, 9))
                 .nickname("yeongdonge")
-                .gender("MALE")
+                .gender(1)
                 .phone("01012341256")
                 .build();
 

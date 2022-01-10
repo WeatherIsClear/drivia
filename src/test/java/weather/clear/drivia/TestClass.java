@@ -9,7 +9,5 @@ public class TestClass {
     void test() {
         Gender male = Gender.valueOf("MALE");
         System.out.println(male);
-
-        Gender.MALE.
     }
 }
