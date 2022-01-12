@@ -1,9 +1,16 @@
 package weather.clear.drivia.domain.driving.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import weather.clear.drivia.domain.driving.dto.DrivingInfoDto;
+import weather.clear.drivia.domain.car.QCar;
+import weather.clear.drivia.domain.driving.Driving;
+import weather.clear.drivia.domain.driving.QDriving;
+import weather.clear.drivia.domain.member.entity.QMember;
 
 import javax.persistence.EntityManager;
+
+import static weather.clear.drivia.domain.car.QCar.*;
+import static weather.clear.drivia.domain.driving.QDriving.*;
+import static weather.clear.drivia.domain.member.entity.QMember.*;
 
 public class DrivingRepositoryImpl implements DrivingRepositoryCustom {
 
@@ -16,7 +23,12 @@ public class DrivingRepositoryImpl implements DrivingRepositoryCustom {
     }
 
     @Override
-    public DrivingInfoDto drivingInfo(Long drivingId) {
-        return null;
+    public Driving drivingInfo(Long drivingId) {
+        return queryFactory
+                .selectFrom(driving)
+                .join(driving.member, member).fetchJoin()
+                .join(driving.car, car).fetchJoin()
+                .where(driving.id.eq(drivingId))
+                .fetchOne();
     }
 }

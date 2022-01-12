@@ -36,6 +36,7 @@ public class DrivingService {
     }
 
     public DrivingInfoDto drivingInfo(Long drivingId) {
-        return drivingRepository.drivingInfo(drivingId);
+        Driving driving = drivingRepository.drivingInfo(drivingId);
+        return null;
     }
 }
