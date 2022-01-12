@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import weather.clear.drivia.domain.car.Car;
 import weather.clear.drivia.domain.car.CarRepository;
 import weather.clear.drivia.domain.driving.dto.CreatDrivingDto;
+import weather.clear.drivia.domain.driving.dto.DrivingInfoDto;
+import weather.clear.drivia.domain.driving.repository.DrivingRepository;
 import weather.clear.drivia.domain.member.MemberRepository;
 import weather.clear.drivia.domain.member.entity.Member;
 
@@ -31,5 +33,9 @@ public class DrivingService {
         Driving driving = Driving.of(member, car, dto);
 
         drivingRepository.save(driving);
+    }
+
+    public DrivingInfoDto drivingInfo(Long drivingId) {
+        return drivingRepository.drivingInfo(drivingId);
     }
 }

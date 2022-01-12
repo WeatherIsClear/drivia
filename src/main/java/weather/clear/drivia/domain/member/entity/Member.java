@@ -28,6 +28,7 @@ public class Member {
     private LocalDate birth;
     private Gender gender;
     private String phone;
+    private String imgUrl;
 
     @Builder
     private Member(String username, String password, String email, String nickname, LocalDate birth, Gender gender, String phone) {

@@ -18,4 +18,6 @@ public class CreatDrivingDto {
     private String departLocation;
 
     private String destination;
+
+    private int totalHeadCount;
 }

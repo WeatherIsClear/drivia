@@ -10,13 +10,13 @@ import weather.clear.drivia.domain.car.dto.RegistrationCarDto;
 import weather.clear.drivia.domain.carmodel.CarModel;
 import weather.clear.drivia.domain.carmodel.CarModelRepository;
 import weather.clear.drivia.domain.driving.dto.CreatDrivingDto;
+import weather.clear.drivia.domain.driving.repository.DrivingRepository;
 import weather.clear.drivia.domain.member.MemberRepository;
 import weather.clear.drivia.domain.member.dto.MemberSignUpDto;
 import weather.clear.drivia.domain.member.entity.Member;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import static java.util.Optional.*;
 import static org.assertj.core.api.Assertions.*;
@@ -71,6 +71,7 @@ class DrivingServiceTest {
                 .departDateTime(LocalDateTime.of(2022, 1, 12, 12, 0))
                 .departLocation("서울시 광진구 화양동 동일로28길")
                 .destination("대구광역시 달성군 다사읍 서재로120")
+                .totalHeadCount(4)
                 .build();
 
         Driving driving = Driving.of(member, car, drivingDto);

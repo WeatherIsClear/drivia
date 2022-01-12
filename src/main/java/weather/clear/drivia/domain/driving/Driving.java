@@ -39,13 +39,18 @@ public class Driving {
 
     private String destination;
 
+    private int nowHeadCount;
+
+    private int totalHeadCount;
+
     @Builder
-    private Driving(Member member, Car car, LocalDateTime departDateTime, String departLocation, String destination) {
+    private Driving(Member member, Car car, LocalDateTime departDateTime, String departLocation, String destination, int totalHeadCount) {
         this.member = member;
         this.car = car;
         this.departDateTime = departDateTime;
         this.departLocation = departLocation;
         this.destination = destination;
+        this.totalHeadCount = totalHeadCount;
     }
 
     public static Driving of(Member member, Car car, CreatDrivingDto dto) {
@@ -55,6 +60,7 @@ public class Driving {
                 .departDateTime(dto.getDepartDateTime())
                 .departLocation(dto.getDepartLocation())
                 .destination(dto.getDestination())
+                .totalHeadCount(dto.getTotalHeadCount())
                 .build();
     }
 }

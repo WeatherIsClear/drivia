@@ -2,11 +2,9 @@ package weather.clear.drivia.domain.driving;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import weather.clear.drivia.domain.driving.dto.CreatDrivingDto;
+import weather.clear.drivia.domain.driving.dto.DrivingInfoDto;
 
 @Slf4j
 @RestController
@@ -20,4 +18,8 @@ public class DrivingController {
         drivingService.createDriving(memberId, request);
     }
 
+    @GetMapping("/driving/{drivingId}")
+    public DrivingInfoDto drivingInfo(@PathVariable Long drivingId) {
+        return drivingService.drivingInfo(drivingId);
+    }
 }
