@@ -47,7 +47,7 @@ public class Member {
                 .email(dto.getEmail())
                 .nickname(dto.getNickname())
                 .birth(dto.getBirth())
-                .gender(Gender.genderFormat(dto.getGender()))
+                .gender(Gender.ofValue(dto.getGender()))
                 .phone(dto.getPhone())
                 .build();
     }

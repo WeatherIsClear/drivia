@@ -29,7 +29,6 @@ public class DrivingService {
                 () -> new IllegalArgumentException("차량이 등록되지 않았습니다."));
 
         Driving driving = Driving.of(member, car, dto);
-        driving.expectedTimeCalc(driving);
 
         drivingRepository.save(driving);
     }

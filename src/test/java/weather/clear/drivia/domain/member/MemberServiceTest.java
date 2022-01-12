@@ -2,11 +2,9 @@ package weather.clear.drivia.domain.member;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import weather.clear.drivia.domain.member.dto.MemberSignUpDto;
-import weather.clear.drivia.domain.member.entity.Gender;
 import weather.clear.drivia.domain.member.entity.Member;
 
 import java.time.LocalDate;

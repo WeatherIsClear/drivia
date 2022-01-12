@@ -13,9 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class RegistrationCarDto {
 
+    private Long carModelId;
     private String carNumber;
     private LocalDate RegistrationDate;
-    private String carName;
-    private String vendor;
-    private String imgUrl;
 }

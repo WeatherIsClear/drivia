@@ -57,9 +57,4 @@ public class Driving {
                 .destination(dto.getDestination())
                 .build();
     }
-
-    public void expectedTimeCalc(Driving driving) {
-        //예상 시간 계산 로직
-        this.expectedTime = driving.getDepartDateTime();
-    }
 }

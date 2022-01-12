@@ -45,12 +45,12 @@ public class Car {
         this.carModel = carModel;
     }
 
-    public static Car of(Member member, RegistrationCarDto dto) {
+    public static Car of(Member member, CarModel carModel, RegistrationCarDto dto) {
         return Car.builder()
                 .member(member)
                 .carNumber(dto.getCarNumber())
                 .registrationDate(dto.getRegistrationDate())
-                .carModel(CarModel.of(dto))
+                .carModel(carModel)
                 .build();
     }
 }

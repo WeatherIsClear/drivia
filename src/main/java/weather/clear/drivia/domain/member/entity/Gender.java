@@ -1,18 +1,31 @@
 package weather.clear.drivia.domain.member.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+@Getter
+@AllArgsConstructor
 public enum Gender {
 
-    MALE, FEMALE, FOREIGN_MALE, FOREIGN_FEMALE;
+    MALE("13"),
+    FEMALE("24"),
+    FOREIGN_MALE("7"),
+    FOREIGN_FEMALE("8");
 
-    public static Gender genderFormat(int genderNumber) {
-        if (genderNumber == 1 || genderNumber == 3) {
-            return Gender.MALE;
-        } else if (genderNumber == 2 || genderNumber == 4) {
-            return Gender.FEMALE;
-        } else if (genderNumber == 7) {
-            return Gender.FOREIGN_MALE;
-        } else {
-            return Gender.FOREIGN_FEMALE;
-        }
+    private String genderNumber;
+
+    private static final Map<String, Gender> map = Arrays.stream(values())
+            .collect(Collectors.toMap(Gender::getGenderNumber, Function.identity()));
+
+    public static Gender ofValue(int genderNumber) {
+        String key = map.keySet().stream().filter(k -> k.contains(String.valueOf(genderNumber)))
+                .findFirst().orElseThrow(() -> new IllegalArgumentException("존재하지 않는 성별입니다. gender=" + genderNumber));
+
+        return map.get(key);
     }
 }
