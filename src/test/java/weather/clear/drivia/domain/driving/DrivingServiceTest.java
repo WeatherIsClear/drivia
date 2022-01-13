@@ -27,6 +27,7 @@ import java.util.List;
 import static java.util.Optional.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
+import static weather.clear.drivia.domain.drivingjoin.entity.DrivingJoinStatus.*;
 
 @ExtendWith(MockitoExtension.class)
 class DrivingServiceTest {
@@ -88,7 +89,7 @@ class DrivingServiceTest {
         carModel = new CarModel("아반떼 XD", "현대", "www");
         car = Car.of(member, carModel, carDto);
         driving = Driving.of(member, car, drivingDto);
-        drivingJoin = DrivingJoin.of(member, driving, DrivingJoinStatus.JOIN);
+        drivingJoin = DrivingJoin.of(member, driving);
     }
     @Test
     void createDriving() {
@@ -113,26 +114,26 @@ class DrivingServiceTest {
 
     @Test
     void drivingInfo() {
-        given(drivingRepository.drivingInfo(1L)).willReturn(driving);
-        Driving findDriving = drivingRepository.drivingInfo(1L);
+        given(drivingRepository.drivingDetails(1L)).willReturn(driving);
+        Driving findDriving = drivingRepository.drivingDetails(1L);
 
         List<DrivingJoin> list = new ArrayList<>();
-        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.JOIN));
-        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.JOIN));
-        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.JOIN));
-        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.JOIN));
-        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.WAITING));
-        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.WAITING));
-        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.WAITING));
-        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.WAITING));
-        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.WAITING));
-        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.WAITING));
+        list.add(DrivingJoin.of(member, driving));
+        list.add(DrivingJoin.of(member, driving));
+        list.add(DrivingJoin.of(member, driving));
+        list.add(DrivingJoin.of(member, driving));
+        list.add(DrivingJoin.of(member, driving));
+        list.add(DrivingJoin.of(member, driving));
+        list.add(DrivingJoin.of(member, driving));
+        list.add(DrivingJoin.of(member, driving));
+        list.add(DrivingJoin.of(member, driving));
+        list.add(DrivingJoin.of(member, driving));
 
         given(drivingJoinRepository.findByDriving(driving)).willReturn(list);
         List<DrivingJoin> drivingJoins = drivingJoinRepository.findByDriving(driving);
 
-        int nowHeadCount = driving.drivingJoinCount(drivingJoins, DrivingJoinStatus.JOIN).intValue();
-        int waitingJoinCount = driving.drivingJoinCount(drivingJoins, DrivingJoinStatus.WAITING).intValue();
+        int nowHeadCount = driving.drivingJoinCount(drivingJoins, JOIN).intValue();
+        int waitingJoinCount = driving.drivingJoinCount(drivingJoins, WAITING).intValue();
 
         assertThat(drivingJoins.size()).isEqualTo(10);
         assertThat(nowHeadCount).isEqualTo(4);

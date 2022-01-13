@@ -7,15 +7,18 @@ import org.springframework.transaction.annotation.Transactional;
 import weather.clear.drivia.domain.car.Car;
 import weather.clear.drivia.domain.car.CarRepository;
 import weather.clear.drivia.domain.driving.dto.CreatDrivingDto;
-import weather.clear.drivia.domain.driving.dto.DrivingInfoDto;
+import weather.clear.drivia.domain.driving.dto.DriverDrivingDetailsDto;
+import weather.clear.drivia.domain.driving.dto.JoinDriverDto;
+import weather.clear.drivia.domain.driving.dto.OwnerDrivingDetailsDto;
 import weather.clear.drivia.domain.driving.repository.DrivingRepository;
 import weather.clear.drivia.domain.drivingjoin.DrivingJoinRepository;
 import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoin;
-import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoinStatus;
 import weather.clear.drivia.domain.member.MemberRepository;
 import weather.clear.drivia.domain.member.entity.Member;
 
 import java.util.List;
+
+import static weather.clear.drivia.domain.drivingjoin.entity.DrivingJoinStatus.*;
 
 @Slf4j
 @Service
@@ -41,14 +44,27 @@ public class DrivingService {
         drivingRepository.save(driving);
     }
 
-    public DrivingInfoDto drivingInfo(Long drivingId) {
-        Driving driving = drivingRepository.drivingInfo(drivingId);
+    public DriverDrivingDetailsDto driverDrivingDetails(Long drivingId) {
+        Driving driving = drivingRepository.drivingDetails(drivingId);
 
         List<DrivingJoin> drivingJoins = drivingJoinRepository.findByDriving(driving);
 
-        int nowHeadCount = driving.drivingJoinCount(drivingJoins, DrivingJoinStatus.JOIN).intValue();
-        int waitingJoinCount = driving.drivingJoinCount(drivingJoins, DrivingJoinStatus.WAITING).intValue();
+        int nowHeadCount = driving.drivingJoinCount(drivingJoins, JOIN).intValue();
+        int waitingJoinCount = driving.drivingJoinCount(drivingJoins, WAITING).intValue();
 
-        return DrivingInfoDto.of(driving, nowHeadCount, waitingJoinCount, 1);
+        //나와의 거리
+
+       return DriverDrivingDetailsDto.of(driving, nowHeadCount, waitingJoinCount, 1);
+    }
+
+    public OwnerDrivingDetailsDto ownerDrivingDetails(Long drivingId) {
+        Driving driving = drivingRepository.drivingDetails(drivingId);
+
+        List<DrivingJoin> drivingJoins = drivingJoinRepository.findWithDrivingDriver(driving);
+
+        List<JoinDriverDto> joinDrivers = driving.joinDrivers(drivingJoins, JOIN);
+        List<JoinDriverDto> waitingDrivers = driving.joinDrivers(drivingJoins, WAITING);
+
+        return OwnerDrivingDetailsDto.of(driving, joinDrivers, waitingDrivers);
     }
 }

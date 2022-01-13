@@ -31,7 +31,7 @@ public class DrivingJoinService {
         Driving driving = drivingRepository.findById(request.getDrivingId()).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 드라이빙입니다."));
 
-        DrivingJoin drivingJoin = DrivingJoin.of(member, driving, DrivingJoinStatus.WAITING);
+        DrivingJoin drivingJoin = DrivingJoin.of(member, driving);
         drivingJoinRepository.save(drivingJoin);
     }
 

@@ -4,5 +4,5 @@ import weather.clear.drivia.domain.driving.Driving;
 
 public interface DrivingRepositoryCustom {
 
-    Driving drivingInfo(Long drivingId);
+    Driving drivingDetails(Long drivingId);
 }

@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import weather.clear.drivia.domain.driving.dto.CreatDrivingDto;
-import weather.clear.drivia.domain.driving.dto.DrivingInfoDto;
+import weather.clear.drivia.domain.driving.dto.DriverDrivingDetailsDto;
+import weather.clear.drivia.domain.driving.dto.OwnerDrivingDetailsDto;
 
 @Slf4j
 @RestController
@@ -18,8 +19,13 @@ public class DrivingController {
         drivingService.createDriving(request);
     }
 
-    @GetMapping("/driving/{drivingId}")
-    public DrivingInfoDto drivingInfo(@PathVariable Long drivingId) {
-        return drivingService.drivingInfo(drivingId);
+    @GetMapping("/driver/driving/{drivingId}")
+    public DriverDrivingDetailsDto driverDrivingDetails(@PathVariable Long drivingId) {
+        return drivingService.driverDrivingDetails(drivingId);
+    }
+
+    @GetMapping("/owner/driving/{drivingId}")
+    public OwnerDrivingDetailsDto ownerDrivingDetails(@PathVariable Long drivingId) {
+        return drivingService.ownerDrivingDetails(drivingId);
     }
 }

@@ -10,6 +10,7 @@ import javax.persistence.*;
 
 import static javax.persistence.EnumType.*;
 import static javax.persistence.FetchType.*;
+import static weather.clear.drivia.domain.drivingjoin.entity.DrivingJoinStatus.*;
 
 @Entity
 @Getter
@@ -30,20 +31,18 @@ public class DrivingJoin {
     private Driving driving;
 
     @Enumerated(STRING)
-    private DrivingJoinStatus status;
+    private DrivingJoinStatus status = WAITING;
 
     @Builder
-    private DrivingJoin(Member member, Driving driving, DrivingJoinStatus status) {
+    private DrivingJoin(Member member, Driving driving) {
         this.member = member;
         this.driving = driving;
-        this.status = status;
     }
 
-    public static DrivingJoin of(Member member, Driving driving, DrivingJoinStatus status) {
+    public static DrivingJoin of(Member member, Driving driving) {
         return DrivingJoin.builder()
                 .member(member)
                 .driving(driving)
-                .status(status)
                 .build();
     }
 

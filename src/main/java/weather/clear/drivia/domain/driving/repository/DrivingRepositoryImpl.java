@@ -25,7 +25,7 @@ public class DrivingRepositoryImpl implements DrivingRepositoryCustom {
     }
 
     @Override
-    public Driving drivingInfo(Long drivingId) {
+    public Driving drivingDetails(Long drivingId) {
         return queryFactory
                 .selectFrom(driving)
                 .join(driving.member, member).fetchJoin()
