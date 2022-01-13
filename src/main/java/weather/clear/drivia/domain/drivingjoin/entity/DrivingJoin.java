@@ -22,28 +22,32 @@ public class DrivingJoin {
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "driving_id")
-    private Driving driving;
-
-    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "driver_id")
     private Member member;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "driving_id")
+    private Driving driving;
 
     @Enumerated(STRING)
     private DrivingJoinStatus status;
 
     @Builder
-    private DrivingJoin(Driving driving, Member member, DrivingJoinStatus status) {
-        this.driving = driving;
+    private DrivingJoin(Member member, Driving driving, DrivingJoinStatus status) {
         this.member = member;
+        this.driving = driving;
         this.status = status;
     }
 
-    public static DrivingJoin of(Driving driving, Member member, DrivingJoinStatus status) {
+    public static DrivingJoin of(Member member, Driving driving, DrivingJoinStatus status) {
         return DrivingJoin.builder()
-                .driving(driving)
                 .member(member)
+                .driving(driving)
                 .status(status)
                 .build();
+    }
+
+    public void joinResult(DrivingJoinStatus status) {
+        this.status = status;
     }
 }

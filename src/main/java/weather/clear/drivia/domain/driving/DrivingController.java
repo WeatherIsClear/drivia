@@ -13,9 +13,9 @@ public class DrivingController {
 
     private final DrivingService drivingService;
 
-    @PostMapping("/driving/{memberId}")
-    public void createDriving(@PathVariable Long memberId, @RequestBody CreatDrivingDto request) {
-        drivingService.createDriving(memberId, request);
+    @PostMapping("/driving")
+    public void createDriving(@RequestBody CreatDrivingDto request) {
+        drivingService.createDriving(request);
     }
 
     @GetMapping("/driving/{drivingId}")

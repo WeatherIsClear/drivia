@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CreatDrivingDto {
 
+    private Long memberId;
+
     private Long carId;
 
     private LocalDateTime departDateTime;

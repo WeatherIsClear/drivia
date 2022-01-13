@@ -13,8 +13,8 @@ public class CarController {
 
     private final CarService carService;
 
-    @PostMapping("/car/{memberId}")
-    public void registrationCar(@PathVariable Long memberId, @RequestBody RegistrationCarDto request) {
-        carService.registrationCar(memberId, request);
+    @PostMapping("/car")
+    public void registrationCar(@RequestBody RegistrationCarDto request) {
+        carService.registrationCar(request);
     }
 }

@@ -6,9 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import weather.clear.drivia.domain.car.Car;
 import weather.clear.drivia.domain.car.CarRepository;
-import weather.clear.drivia.domain.car.dto.RegistrationCarDto;
-import weather.clear.drivia.domain.carmodel.CarModel;
-import weather.clear.drivia.domain.carmodel.CarModelRepository;
 import weather.clear.drivia.domain.driving.dto.CreatDrivingDto;
 import weather.clear.drivia.domain.driving.dto.DrivingInfoDto;
 import weather.clear.drivia.domain.driving.repository.DrivingRepository;
@@ -18,9 +15,6 @@ import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoinStatus;
 import weather.clear.drivia.domain.member.MemberRepository;
 import weather.clear.drivia.domain.member.entity.Member;
 
-import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -34,15 +28,15 @@ public class DrivingService {
     private final DrivingRepository drivingRepository;
     private final DrivingJoinRepository drivingJoinRepository;
 
-    public void createDriving(Long memberId, CreatDrivingDto dto) {
+    public void createDriving(CreatDrivingDto request) {
 
-        Member member = memberRepository.findById(memberId).orElseThrow(
+        Member member = memberRepository.findById(request.getMemberId()).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 회원 입니다."));
 
-        Car car = carRepository.findById(dto.getCarId()).orElseThrow(
+        Car car = carRepository.findById(request.getCarId()).orElseThrow(
                 () -> new IllegalArgumentException("차량이 등록되지 않았습니다."));
 
-        Driving driving = Driving.of(member, car, dto);
+        Driving driving = Driving.of(member, car, request);
 
         drivingRepository.save(driving);
     }

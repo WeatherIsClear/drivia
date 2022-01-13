@@ -69,12 +69,14 @@ class DrivingServiceTest {
                 .build();
 
         carDto = RegistrationCarDto.builder()
+                .memberId(1L)
                 .carModelId(2L)
                 .carNumber("서울30가0000")
                 .RegistrationDate(LocalDate.of(2021, 1, 1))
                 .build();
 
         drivingDto = CreatDrivingDto.builder()
+                .memberId(1L)
                 .carId(3L)
                 .departDateTime(LocalDateTime.of(2022, 1, 12, 12, 0))
                 .departLocation("서울시 광진구 화양동 동일로28길")
@@ -86,7 +88,7 @@ class DrivingServiceTest {
         carModel = new CarModel("아반떼 XD", "현대", "www");
         car = Car.of(member, carModel, carDto);
         driving = Driving.of(member, car, drivingDto);
-        drivingJoin = DrivingJoin.of(driving, member, DrivingJoinStatus.JOIN);
+        drivingJoin = DrivingJoin.of(member, driving, DrivingJoinStatus.JOIN);
     }
     @Test
     void createDriving() {
@@ -115,16 +117,16 @@ class DrivingServiceTest {
         Driving findDriving = drivingRepository.drivingInfo(1L);
 
         List<DrivingJoin> list = new ArrayList<>();
-        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.JOIN));
-        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.JOIN));
-        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.JOIN));
-        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.JOIN));
-        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.WAITING));
-        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.WAITING));
-        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.WAITING));
-        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.WAITING));
-        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.WAITING));
-        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.WAITING));
+        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.JOIN));
+        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.JOIN));
+        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.JOIN));
+        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.JOIN));
+        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.WAITING));
+        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.WAITING));
+        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.WAITING));
+        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.WAITING));
+        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.WAITING));
+        list.add(DrivingJoin.of(member, driving, DrivingJoinStatus.WAITING));
 
         given(drivingJoinRepository.findByDriving(driving)).willReturn(list);
         List<DrivingJoin> drivingJoins = drivingJoinRepository.findByDriving(driving);

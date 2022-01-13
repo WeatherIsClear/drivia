@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class RegistrationCarDto {
 
+    private Long memberId;
     private Long carModelId;
     private String carNumber;
     private LocalDate RegistrationDate;

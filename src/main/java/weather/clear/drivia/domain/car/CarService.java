@@ -20,9 +20,9 @@ public class CarService {
     private final MemberRepository memberRepository;
     private final CarModelRepository carModelRepository;
 
-    public void registrationCar(Long memberId, RegistrationCarDto request) {
+    public void registrationCar(RegistrationCarDto request) {
 
-        Member member = memberRepository.findById(memberId).orElseThrow(
+        Member member = memberRepository.findById(request.getMemberId()).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 회원입니다."));
 
         CarModel carModel = carModelRepository.findById(request.getCarModelId()).orElseThrow(
