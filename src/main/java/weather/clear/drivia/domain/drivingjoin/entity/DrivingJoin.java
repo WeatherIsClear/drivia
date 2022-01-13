@@ -1,5 +1,6 @@
-package weather.clear.drivia.domain.drivingjoin;
+package weather.clear.drivia.domain.drivingjoin.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import weather.clear.drivia.domain.driving.Driving;
@@ -31,6 +32,18 @@ public class DrivingJoin {
     @Enumerated(STRING)
     private DrivingJoinStatus status;
 
+    @Builder
+    private DrivingJoin(Driving driving, Member member, DrivingJoinStatus status) {
+        this.driving = driving;
+        this.member = member;
+        this.status = status;
+    }
 
-
+    public static DrivingJoin of(Driving driving, Member member, DrivingJoinStatus status) {
+        return DrivingJoin.builder()
+                .driving(driving)
+                .member(member)
+                .status(status)
+                .build();
+    }
 }

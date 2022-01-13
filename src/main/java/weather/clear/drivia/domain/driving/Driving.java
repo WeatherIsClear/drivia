@@ -6,10 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import weather.clear.drivia.domain.car.Car;
 import weather.clear.drivia.domain.driving.dto.CreatDrivingDto;
+import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoin;
+import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoinStatus;
 import weather.clear.drivia.domain.member.entity.Member;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.FetchType.*;
 
@@ -39,8 +43,6 @@ public class Driving {
 
     private String destination;
 
-    private int nowHeadCount;
-
     private int totalHeadCount;
 
     @Builder
@@ -62,5 +64,10 @@ public class Driving {
                 .destination(dto.getDestination())
                 .totalHeadCount(dto.getTotalHeadCount())
                 .build();
+    }
+
+    public Long drivingJoinCount(List<DrivingJoin> drivingJoins, DrivingJoinStatus status) {
+        return drivingJoins.stream()
+                .filter(drivingJoin -> drivingJoin.getStatus().equals(status)).count();
     }
 }

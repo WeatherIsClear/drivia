@@ -1,4 +1,4 @@
-package weather.clear.drivia.domain.drivingjoin;
+package weather.clear.drivia.domain.drivingjoin.entity;
 
 public enum DrivingJoinStatus {
 

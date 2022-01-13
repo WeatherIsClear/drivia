@@ -1,5 +1,6 @@
 package weather.clear.drivia.domain.driving;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -11,12 +12,17 @@ import weather.clear.drivia.domain.carmodel.CarModel;
 import weather.clear.drivia.domain.carmodel.CarModelRepository;
 import weather.clear.drivia.domain.driving.dto.CreatDrivingDto;
 import weather.clear.drivia.domain.driving.repository.DrivingRepository;
+import weather.clear.drivia.domain.drivingjoin.DrivingJoinRepository;
+import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoin;
+import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoinStatus;
 import weather.clear.drivia.domain.member.MemberRepository;
 import weather.clear.drivia.domain.member.dto.MemberSignUpDto;
 import weather.clear.drivia.domain.member.entity.Member;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.util.Optional.*;
 import static org.assertj.core.api.Assertions.*;
@@ -37,9 +43,22 @@ class DrivingServiceTest {
     @Mock
     CarModelRepository carModelRepository;
 
-    @Test
-    void createDriving() {
-        MemberSignUpDto dto = MemberSignUpDto.builder()
+    @Mock
+    DrivingJoinRepository drivingJoinRepository;
+
+
+    MemberSignUpDto memberDto;
+    RegistrationCarDto carDto;
+    CreatDrivingDto drivingDto;
+    Member member;
+    Car car;
+    CarModel carModel;
+    Driving driving;
+    DrivingJoin drivingJoin;
+
+    @BeforeEach
+    void initData() {
+        memberDto = MemberSignUpDto.builder()
                 .username("김동영")
                 .password("1234")
                 .email("yeongdonge@gmail.com")
@@ -49,24 +68,13 @@ class DrivingServiceTest {
                 .phone("01012341256")
                 .build();
 
-        Member member = Member.of(dto);
-
-        given(memberRepository.findById(1L)).willReturn(ofNullable(member));
-
-        RegistrationCarDto carDto = RegistrationCarDto.builder()
+        carDto = RegistrationCarDto.builder()
                 .carModelId(2L)
                 .carNumber("서울30가0000")
                 .RegistrationDate(LocalDate.of(2021, 1, 1))
                 .build();
 
-        CarModel carModel = new CarModel("", "", "");
-        given(carModelRepository.findById(carDto.getCarModelId())).willReturn(of(carModel));
-
-        Car car = Car.of(member, carModel, carDto);
-
-        given(carRepository.findById(3L)).willReturn(ofNullable(car));
-
-        CreatDrivingDto drivingDto = CreatDrivingDto.builder()
+        drivingDto = CreatDrivingDto.builder()
                 .carId(3L)
                 .departDateTime(LocalDateTime.of(2022, 1, 12, 12, 0))
                 .departLocation("서울시 광진구 화양동 동일로28길")
@@ -74,7 +82,20 @@ class DrivingServiceTest {
                 .totalHeadCount(4)
                 .build();
 
-        Driving driving = Driving.of(member, car, drivingDto);
+        member = Member.of(memberDto);
+        carModel = new CarModel("아반떼 XD", "현대", "www");
+        car = Car.of(member, carModel, carDto);
+        driving = Driving.of(member, car, drivingDto);
+        drivingJoin = DrivingJoin.of(driving, member, DrivingJoinStatus.JOIN);
+    }
+    @Test
+    void createDriving() {
+        given(memberRepository.findById(1L)).willReturn(ofNullable(member));
+
+        given(carModelRepository.findById(carDto.getCarModelId())).willReturn(of(carModel));
+
+        given(carRepository.findById(3L)).willReturn(ofNullable(car));
+
         given(drivingRepository.save(driving)).willReturn(driving);
 
         Member findMember = memberRepository.findById(1L).get();
@@ -82,11 +103,38 @@ class DrivingServiceTest {
         Car findCar = carRepository.findById(3L).get();
         Driving savedDriving = drivingRepository.save(driving);
 
-        assertThat(findMember).isEqualTo(member);
+        assertThat(findMember.getUsername()).isEqualTo("김동영");
         assertThat(findCarModel).isEqualTo(carModel);
         assertThat(findCar).isEqualTo(car);
         assertThat(savedDriving).isEqualTo(driving);
+    }
 
+    @Test
+    void drivingInfo() {
+        given(drivingRepository.drivingInfo(1L)).willReturn(driving);
+        Driving findDriving = drivingRepository.drivingInfo(1L);
+
+        List<DrivingJoin> list = new ArrayList<>();
+        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.JOIN));
+        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.JOIN));
+        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.JOIN));
+        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.JOIN));
+        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.WAITING));
+        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.WAITING));
+        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.WAITING));
+        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.WAITING));
+        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.WAITING));
+        list.add(DrivingJoin.of(driving, member, DrivingJoinStatus.WAITING));
+
+        given(drivingJoinRepository.findByDriving(driving)).willReturn(list);
+        List<DrivingJoin> drivingJoins = drivingJoinRepository.findByDriving(driving);
+
+        int nowHeadCount = driving.drivingJoinCount(drivingJoins, DrivingJoinStatus.JOIN).intValue();
+        int waitingJoinCount = driving.drivingJoinCount(drivingJoins, DrivingJoinStatus.WAITING).intValue();
+
+        assertThat(drivingJoins.size()).isEqualTo(10);
+        assertThat(nowHeadCount).isEqualTo(4);
+        assertThat(waitingJoinCount).isEqualTo(6);
     }
 
 }
