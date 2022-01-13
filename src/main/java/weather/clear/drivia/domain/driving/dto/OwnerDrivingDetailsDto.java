@@ -18,7 +18,7 @@ public class OwnerDrivingDetailsDto {
     private String departLocation;
     private String destination;
     private LocalDateTime expectedTime;
-    private List<JoinDriverDto> joinDrivers;
+    private List<JoinDriverDto> joinedDrivers;
     private List<JoinDriverDto> waitingDrivers;
 
     @Builder
@@ -26,7 +26,7 @@ public class OwnerDrivingDetailsDto {
                                     int nowHeadCount, int totalHeadCount, int waitingJoinCount,
                                     LocalDateTime departDateTime, String departLocation, String destination,
                                     LocalDateTime expectedTime,
-                                    List<JoinDriverDto> joinDrivers, List<JoinDriverDto> waitingDrivers) {
+                                    List<JoinDriverDto> joinedDrivers, List<JoinDriverDto> waitingDrivers) {
         this.nickname = nickname;
         this.profilePicture = profilePicture;
         this.carPicture = carPicture;
@@ -37,23 +37,23 @@ public class OwnerDrivingDetailsDto {
         this.departLocation = departLocation;
         this.destination = destination;
         this.expectedTime = expectedTime;
-        this.joinDrivers = joinDrivers;
+        this.joinedDrivers = joinedDrivers;
         this.waitingDrivers = waitingDrivers;
     }
 
-    public static OwnerDrivingDetailsDto of(Driving driving, List<JoinDriverDto> joinDrivers, List<JoinDriverDto> waitingDrivers) {
+    public static OwnerDrivingDetailsDto of(Driving driving, List<JoinDriverDto> joinedDrivers, List<JoinDriverDto> waitingDrivers) {
         return OwnerDrivingDetailsDto.builder()
                 .nickname(driving.getMember().getNickname())
                 .profilePicture(driving.getMember().getImgUrl())
                 .carPicture(driving.getCar().getCarModel().getImageUrl())
-                .nowHeadCount(joinDrivers.size())
+                .nowHeadCount(joinedDrivers.size())
                 .totalHeadCount(driving.getTotalHeadCount())
                 .waitingJoinCount(waitingDrivers.size())
                 .departDateTime(driving.getDepartDateTime())
                 .departLocation(driving.getDepartLocation())
                 .destination(driving.getDestination())
                 .expectedTime(driving.getExpectedTime())
-                .joinDrivers(joinDrivers)
+                .joinedDrivers(joinedDrivers)
                 .waitingDrivers(waitingDrivers)
                 .build();
     }

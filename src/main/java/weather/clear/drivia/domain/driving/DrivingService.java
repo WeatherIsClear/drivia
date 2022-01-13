@@ -62,9 +62,9 @@ public class DrivingService {
 
         List<DrivingJoin> drivingJoins = drivingJoinRepository.findWithDrivingDriver(driving);
 
-        List<JoinDriverDto> joinDrivers = driving.joinDrivers(drivingJoins, JOIN);
+        List<JoinDriverDto> joinedDrivers = driving.joinDrivers(drivingJoins, JOIN);
         List<JoinDriverDto> waitingDrivers = driving.joinDrivers(drivingJoins, WAITING);
 
-        return OwnerDrivingDetailsDto.of(driving, joinDrivers, waitingDrivers);
+        return OwnerDrivingDetailsDto.of(driving, joinedDrivers, waitingDrivers);
     }
 }
