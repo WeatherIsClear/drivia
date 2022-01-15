@@ -1,11 +1,13 @@
 package weather.clear.drivia.domain.carmodel;
 
-import lombok.Getter;
+import lombok.*;
+import weather.clear.drivia.domain.car.dto.RegistrationCarDto;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CarModel {
 
     @Id
@@ -16,4 +18,10 @@ public class CarModel {
     private String carName;
     private String vendor;
     private String imageUrl;
+
+    public CarModel(String carName, String vendor, String imageUrl) {
+        this.carName = carName;
+        this.vendor = vendor;
+        this.imageUrl = imageUrl;
+    }
 }
