@@ -11,7 +11,7 @@ import weather.clear.drivia.domain.driving.dto.DriverDrivingDetailsDto;
 import weather.clear.drivia.domain.driving.dto.JoinDriverDto;
 import weather.clear.drivia.domain.driving.dto.OwnerDrivingDetailsDto;
 import weather.clear.drivia.domain.driving.repository.DrivingRepository;
-import weather.clear.drivia.domain.drivingjoin.DrivingJoinRepository;
+import weather.clear.drivia.domain.drivingjoin.repository.DrivingJoinRepository;
 import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoin;
 import weather.clear.drivia.domain.member.MemberRepository;
 import weather.clear.drivia.domain.member.entity.Member;
@@ -49,12 +49,15 @@ public class DrivingService {
 
         List<DrivingJoin> drivingJoins = drivingJoinRepository.findByDriving(driving);
 
-        int nowHeadCount = driving.drivingJoinCount(drivingJoins, JOIN).intValue();
-        int waitingJoinCount = driving.drivingJoinCount(drivingJoins, WAITING).intValue();
-
+        List<JoinDriverDto> joinedDrivers = driving.joinDrivers(drivingJoins, JOINED);
+        int countOfWaitingDrivers = driving.drivingWaitingCount(drivingJoins).intValue();
         //나와의 거리
 
-       return DriverDrivingDetailsDto.of(driving, nowHeadCount, waitingJoinCount, 1);
+       return DriverDrivingDetailsDto.of(driving, joinedDrivers, countOfWaitingDrivers, 1);
+    }
+
+    public JoinDriverDrivingDetailsDto joinDriverDrivingDetails(Long driverId, Long drivingId) {
+        //
     }
 
     public OwnerDrivingDetailsDto ownerDrivingDetails(Long drivingId) {
@@ -62,7 +65,7 @@ public class DrivingService {
 
         List<DrivingJoin> drivingJoins = drivingJoinRepository.findWithDrivingDriver(driving);
 
-        List<JoinDriverDto> joinedDrivers = driving.joinDrivers(drivingJoins, JOIN);
+        List<JoinDriverDto> joinedDrivers = driving.joinDrivers(drivingJoins, JOINED);
         List<JoinDriverDto> waitingDrivers = driving.joinDrivers(drivingJoins, WAITING);
 
         return OwnerDrivingDetailsDto.of(driving, joinedDrivers, waitingDrivers);

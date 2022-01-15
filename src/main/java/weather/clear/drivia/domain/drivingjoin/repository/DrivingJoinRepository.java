@@ -1,4 +1,4 @@
-package weather.clear.drivia.domain.drivingjoin;
+package weather.clear.drivia.domain.drivingjoin.repository;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,7 +9,7 @@ import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoin;
 
 import java.util.List;
 
-public interface DrivingJoinRepository extends JpaRepository<DrivingJoin, Long> {
+public interface DrivingJoinRepository extends JpaRepository<DrivingJoin, Long>, DrivingJoinRepositoryCustom {
 
     List<DrivingJoin> findByDriving(Driving driving);
 

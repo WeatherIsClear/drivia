@@ -1,15 +1,16 @@
-package weather.clear.drivia.domain.driving.dto;
+package weather.clear.drivia.domain.driving;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import weather.clear.drivia.domain.driving.Driving;
+import weather.clear.drivia.domain.driving.dto.DriverDrivingDetailsDto;
+import weather.clear.drivia.domain.driving.dto.JoinDriverDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
 @AllArgsConstructor
-public class DriverDrivingDetailsDto {
+public class JoinDriverDrivingDetailsDto {
 
     private Long drivingId;
     private Long ownerId;
@@ -18,17 +19,17 @@ public class DriverDrivingDetailsDto {
     private String carPicture;
     private int countOfJoinedDrivers;
     private int countOfMaximumDrivers;
-    private int countOfWaitingDrivers;
+    private String status;
     private LocalDateTime departDateTime;
     private String departLocation;
     private String destination;
     private LocalDateTime expectedTime;
     private int kmFromMe;
 
-    public static DriverDrivingDetailsDto of(Driving driving,
+    public static JoinDriverDrivingDetailsDto of(Driving driving,
                                              List<JoinDriverDto> joinedDrivers, int countOfWaitingDrivers,
                                              int kmFromMe) {
-        return DriverDrivingDetailsDto.builder()
+        return JoinDriverDrivingDetailsDto.builder()
                 .drivingId(driving.getId())
                 .ownerId(driving.getMember().getId())
                 .nickname(driving.getMember().getNickname())
@@ -36,7 +37,6 @@ public class DriverDrivingDetailsDto {
                 .carPicture(driving.getCar().getCarModel().getImageUrl())
                 .countOfJoinedDrivers(joinedDrivers.size())
                 .countOfMaximumDrivers(driving.getMaximumDriver())
-                .countOfWaitingDrivers(countOfWaitingDrivers)
                 .departDateTime(driving.getDepartDateTime())
                 .departLocation(driving.getDepartLocation())
                 .destination(driving.getDestination())
