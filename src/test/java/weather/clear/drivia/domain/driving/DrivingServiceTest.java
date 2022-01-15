@@ -11,6 +11,7 @@ import weather.clear.drivia.domain.car.dto.RegistrationCarDto;
 import weather.clear.drivia.domain.carmodel.CarModel;
 import weather.clear.drivia.domain.carmodel.CarModelRepository;
 import weather.clear.drivia.domain.driving.dto.CreatDrivingDto;
+import weather.clear.drivia.domain.driving.dto.JoinDriverDto;
 import weather.clear.drivia.domain.driving.repository.DrivingRepository;
 import weather.clear.drivia.domain.drivingjoin.DrivingJoinRepository;
 import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoin;
@@ -113,31 +114,60 @@ class DrivingServiceTest {
     }
 
     @Test
-    void drivingInfo() {
+    void driverDrivingDetails() {
         given(drivingRepository.drivingDetails(1L)).willReturn(driving);
         Driving findDriving = drivingRepository.drivingDetails(1L);
 
         List<DrivingJoin> list = new ArrayList<>();
-        list.add(DrivingJoin.of(member, driving));
-        list.add(DrivingJoin.of(member, driving));
-        list.add(DrivingJoin.of(member, driving));
-        list.add(DrivingJoin.of(member, driving));
-        list.add(DrivingJoin.of(member, driving));
-        list.add(DrivingJoin.of(member, driving));
-        list.add(DrivingJoin.of(member, driving));
-        list.add(DrivingJoin.of(member, driving));
-        list.add(DrivingJoin.of(member, driving));
-        list.add(DrivingJoin.of(member, driving));
+        list.add(DrivingJoin.of(member, findDriving));
+        list.add(DrivingJoin.of(member, findDriving));
+        list.add(DrivingJoin.of(member, findDriving));
+        list.add(DrivingJoin.of(member, findDriving));
+        list.add(DrivingJoin.of(member, findDriving));
+        list.add(DrivingJoin.of(member, findDriving));
+        list.add(DrivingJoin.of(member, findDriving));
+        list.add(DrivingJoin.of(member, findDriving));
+        list.add(DrivingJoin.of(member, findDriving));
+        list.add(DrivingJoin.of(member, findDriving));
 
-        given(drivingJoinRepository.findByDriving(driving)).willReturn(list);
-        List<DrivingJoin> drivingJoins = drivingJoinRepository.findByDriving(driving);
+        given(drivingJoinRepository.findByDriving(findDriving)).willReturn(list);
+        List<DrivingJoin> drivingJoins = drivingJoinRepository.findByDriving(findDriving);
 
-        int nowHeadCount = driving.drivingJoinCount(drivingJoins, JOIN).intValue();
-        int waitingJoinCount = driving.drivingJoinCount(drivingJoins, WAITING).intValue();
+        int nowHeadCount = findDriving.drivingJoinCount(drivingJoins, JOIN).intValue();
+        int waitingJoinCount = findDriving.drivingJoinCount(drivingJoins, WAITING).intValue();
 
+        assertThat(findDriving).isEqualTo(driving);
         assertThat(drivingJoins.size()).isEqualTo(10);
-        assertThat(nowHeadCount).isEqualTo(4);
-        assertThat(waitingJoinCount).isEqualTo(6);
+        assertThat(nowHeadCount).isEqualTo(0);
+        assertThat(waitingJoinCount).isEqualTo(10);
     }
 
+    @Test
+    void ownerDrivingDetails() {
+        given(drivingRepository.drivingDetails(1L)).willReturn(driving);
+        Driving findDriving = drivingRepository.drivingDetails(1L);
+
+        List<DrivingJoin> list = new ArrayList<>();
+        list.add(DrivingJoin.of(member, findDriving));
+        list.add(DrivingJoin.of(member, findDriving));
+        list.add(DrivingJoin.of(member, findDriving));
+        list.add(DrivingJoin.of(member, findDriving));
+        list.add(DrivingJoin.of(member, findDriving));
+        list.add(DrivingJoin.of(member, findDriving));
+        list.add(DrivingJoin.of(member, findDriving));
+        list.add(DrivingJoin.of(member, findDriving));
+        list.add(DrivingJoin.of(member, findDriving));
+        list.add(DrivingJoin.of(member, findDriving));
+
+        given(drivingJoinRepository.findWithDrivingDriver(findDriving)).willReturn(list);
+        List<DrivingJoin> drivingJoins = drivingJoinRepository.findWithDrivingDriver(findDriving);
+
+        List<JoinDriverDto> joinedDrivers = findDriving.joinDrivers(drivingJoins, JOIN);
+        List<JoinDriverDto> waitingDrivers = findDriving.joinDrivers(drivingJoins, WAITING);
+
+        assertThat(findDriving).isEqualTo(driving);
+        assertThat(drivingJoins.size()).isEqualTo(10);
+        assertThat(joinedDrivers.size()).isEqualTo(0);
+        assertThat(waitingDrivers.size()).isEqualTo(10);
+    }
 }
