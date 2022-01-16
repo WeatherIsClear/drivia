@@ -2,15 +2,11 @@ package weather.clear.drivia.domain.drivingjoin.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import weather.clear.drivia.domain.driving.Driving;
-import weather.clear.drivia.domain.driving.QDriving;
 import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoin;
-import weather.clear.drivia.domain.drivingjoin.entity.QDrivingJoin;
-import weather.clear.drivia.domain.member.entity.QMember;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static weather.clear.drivia.domain.driving.QDriving.*;
 import static weather.clear.drivia.domain.drivingjoin.entity.QDrivingJoin.*;
 import static weather.clear.drivia.domain.member.entity.QMember.*;
 
