@@ -9,7 +9,7 @@ import java.util.List;
 
 @Builder
 @AllArgsConstructor
-public class DriverDrivingDetailsDto {
+public class DrivingDetailsDto {
 
     private Long drivingId;
     private Long ownerId;
@@ -23,12 +23,11 @@ public class DriverDrivingDetailsDto {
     private String departLocation;
     private String destination;
     private LocalDateTime expectedTime;
-    private int kmFromMe;
+    private List<JoinDriverDto> joinedDrivers;
 
-    public static DriverDrivingDetailsDto of(Driving driving,
-                                             List<JoinDriverDto> joinedDrivers, int countOfWaitingDrivers,
-                                             int kmFromMe) {
-        return DriverDrivingDetailsDto.builder()
+    public static DrivingDetailsDto of(Driving driving,
+                                       List<JoinDriverDto> joinedDrivers, int countOfWaitingDrivers) {
+        return DrivingDetailsDto.builder()
                 .drivingId(driving.getId())
                 .ownerId(driving.getMember().getId())
                 .nickname(driving.getMember().getNickname())
@@ -41,7 +40,7 @@ public class DriverDrivingDetailsDto {
                 .departLocation(driving.getDepartLocation())
                 .destination(driving.getDestination())
                 .expectedTime(driving.getExpectedTime())
-                .kmFromMe(kmFromMe)
+                .joinedDrivers(joinedDrivers)
                 .build();
     }
 }

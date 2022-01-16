@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import weather.clear.drivia.domain.driving.dto.CreatDrivingDto;
-import weather.clear.drivia.domain.driving.dto.DriverDrivingDetailsDto;
+import weather.clear.drivia.domain.driving.dto.DrivingDetailsDto;
 import weather.clear.drivia.domain.driving.dto.OwnerDrivingDetailsDto;
+import weather.clear.drivia.domain.driving.service.DrivingQueryService;
+import weather.clear.drivia.domain.driving.service.DrivingService;
 
 @Slf4j
 @RestController
@@ -13,19 +15,25 @@ import weather.clear.drivia.domain.driving.dto.OwnerDrivingDetailsDto;
 public class DrivingController {
 
     private final DrivingService drivingService;
+    private final DrivingQueryService drivingQueryService;
 
     @PostMapping("/driving")
     public void createDriving(@RequestBody CreatDrivingDto request) {
         drivingService.createDriving(request);
     }
 
-    @GetMapping("/driver/driving/{drivingId}")
-    public DriverDrivingDetailsDto driverDrivingDetails(@PathVariable Long drivingId) {
-        return drivingService.driverDrivingDetails(drivingId);
+    @GetMapping("/driving/{drivingId}")
+    public DrivingDetailsDto drivingDetails(@PathVariable Long drivingId) {
+        return drivingQueryService.drivingDetails(drivingId);
+    }
+
+    @GetMapping("/driver/driving/{driverId}/{drivingId}")
+    public JoinDriverDrivingDetailsDto joinDriverDrivingDetails(@PathVariable Long driverId, @PathVariable Long drivingId) {
+        return drivingQueryService.joinDriverDrivingDetails(driverId, drivingId);
     }
 
     @GetMapping("/owner/driving/{drivingId}")
     public OwnerDrivingDetailsDto ownerDrivingDetails(@PathVariable Long drivingId) {
-        return drivingService.ownerDrivingDetails(drivingId);
+        return drivingQueryService.ownerDrivingDetails(drivingId);
     }
 }

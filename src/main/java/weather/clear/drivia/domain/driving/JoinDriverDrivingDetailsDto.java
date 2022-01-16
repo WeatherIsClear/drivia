@@ -2,7 +2,6 @@ package weather.clear.drivia.domain.driving;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import weather.clear.drivia.domain.driving.dto.DriverDrivingDetailsDto;
 import weather.clear.drivia.domain.driving.dto.JoinDriverDto;
 
 import java.time.LocalDateTime;
@@ -19,16 +18,15 @@ public class JoinDriverDrivingDetailsDto {
     private String carPicture;
     private int countOfJoinedDrivers;
     private int countOfMaximumDrivers;
-    private String status;
+    private String myJoinStatus;
     private LocalDateTime departDateTime;
     private String departLocation;
     private String destination;
     private LocalDateTime expectedTime;
-    private int kmFromMe;
+    private List<JoinDriverDto> joinedDrivers;
 
     public static JoinDriverDrivingDetailsDto of(Driving driving,
-                                             List<JoinDriverDto> joinedDrivers, int countOfWaitingDrivers,
-                                             int kmFromMe) {
+                                             List<JoinDriverDto> joinedDrivers, String myJoinStatus) {
         return JoinDriverDrivingDetailsDto.builder()
                 .drivingId(driving.getId())
                 .ownerId(driving.getMember().getId())
@@ -37,11 +35,12 @@ public class JoinDriverDrivingDetailsDto {
                 .carPicture(driving.getCar().getCarModel().getImageUrl())
                 .countOfJoinedDrivers(joinedDrivers.size())
                 .countOfMaximumDrivers(driving.getMaximumDriver())
+                .myJoinStatus(myJoinStatus)
                 .departDateTime(driving.getDepartDateTime())
                 .departLocation(driving.getDepartLocation())
                 .destination(driving.getDestination())
                 .expectedTime(driving.getExpectedTime())
-                .kmFromMe(kmFromMe)
+                .joinedDrivers(joinedDrivers)
                 .build();
     }
 }

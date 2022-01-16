@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import weather.clear.drivia.domain.car.dto.RegistrationCarDto;
+import weather.clear.drivia.domain.car.dto.CarRegistrationDto;
 import weather.clear.drivia.domain.carmodel.CarModel;
 import weather.clear.drivia.domain.carmodel.CarModelRepository;
 import weather.clear.drivia.domain.member.MemberRepository;
@@ -46,7 +46,7 @@ class CarServiceTest {
 
         given(memberRepository.findById(1L)).willReturn(Optional.ofNullable(member));
 
-        RegistrationCarDto carDto = RegistrationCarDto.builder()
+        CarRegistrationDto carDto = CarRegistrationDto.builder()
                 .carModelId(2L)
                 .carNumber("서울30가0000")
                 .RegistrationDate(LocalDate.of(2021, 1, 1))

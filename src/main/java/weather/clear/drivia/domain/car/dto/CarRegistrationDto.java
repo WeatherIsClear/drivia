@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Setter
 @Builder
 @AllArgsConstructor
-public class RegistrationCarDto {
+public class CarRegistrationDto {
 
     private Long memberId;
     private Long carModelId;
