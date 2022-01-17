@@ -25,7 +25,6 @@ class GenderTest {
         g g8 = weather.clear.drivia.domain.member.entity.g.ofValue(8);
 
         System.out.println(g1.getGenderNumber());
-        Gender.MALE.get
         Assertions.assertThat(g1).isEqualTo(g.MALE);
         Assertions.assertThat(g3).isEqualTo(g.MALE);
         Assertions.assertThat(g2).isEqualTo(g.FEMALE);

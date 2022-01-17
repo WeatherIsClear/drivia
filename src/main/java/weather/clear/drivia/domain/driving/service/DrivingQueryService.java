@@ -36,10 +36,14 @@ public class DrivingQueryService {
         List<DrivingJoin> drivingJoins = drivingJoinRepository.findWithDrivingDriver(driving);
 
         List<JoinDriverDto> joinedDrivers = drivingJoinToJoinDriverDto(drivingJoins, JOINED);
-        long countOfWaitingDrivers = drivingJoins.stream()
-                .filter(drivingJoin -> drivingJoin.getStatus().equals(WAITING)).count();
+        long countOfWaitingDrivers = countOfWaitingDrivers(drivingJoins);
 
         return DrivingDetailsDto.of(driving, joinedDrivers, (int) countOfWaitingDrivers);
+    }
+
+    private long countOfWaitingDrivers(List<DrivingJoin> drivingJoins) {
+        return drivingJoins.stream()
+                .filter(drivingJoin -> drivingJoin.getStatus().equals(WAITING)).count();
     }
 
     public JoinDriverDrivingDetailsDto joinDriverDrivingDetails(Long driverId, Long drivingId) {
@@ -49,12 +53,16 @@ public class DrivingQueryService {
         List<DrivingJoin> drivingJoins = drivingJoinRepository.findWithDrivingDriver(driving);
 
         List<JoinDriverDto> joinedDrivers = drivingJoinToJoinDriverDto(drivingJoins, JOINED);
-        String myJoinStatus = drivingJoins.stream()
+        String myJoinStatus = myDrivingJoinStatus(driverId, drivingJoins);
+
+        return JoinDriverDrivingDetailsDto.of(driving, joinedDrivers, myJoinStatus);
+    }
+
+    private String myDrivingJoinStatus(Long driverId, List<DrivingJoin> drivingJoins) {
+        return drivingJoins.stream()
                 .filter(drivingJoin -> drivingJoin.getMember().getId().equals(driverId))
                 .findAny().orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."))
                 .getStatus().getJoinStatus();
-
-        return JoinDriverDrivingDetailsDto.of(driving, joinedDrivers, myJoinStatus);
     }
 
     public OwnerDrivingDetailsDto ownerDrivingDetails(Long drivingId) {

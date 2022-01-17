@@ -1,43 +1,47 @@
-package weather.clear.drivia.domain.driving;
+package weather.clear.drivia.domain.drivingjoin;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import weather.clear.drivia.domain.car.Car;
-import weather.clear.drivia.domain.car.CarRepository;
 import weather.clear.drivia.domain.car.dto.CarRegistrationDto;
 import weather.clear.drivia.domain.carmodel.CarModel;
-import weather.clear.drivia.domain.carmodel.CarModelRepository;
+import weather.clear.drivia.domain.driving.Driving;
 import weather.clear.drivia.domain.driving.dto.CreatDrivingDto;
 import weather.clear.drivia.domain.driving.repository.DrivingRepository;
 import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoin;
+import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoinStatus;
+import weather.clear.drivia.domain.drivingjoin.repository.DrivingJoinRepository;
 import weather.clear.drivia.domain.member.MemberRepository;
 import weather.clear.drivia.domain.member.dto.MemberSignUpDto;
 import weather.clear.drivia.domain.member.entity.Member;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import static java.util.Optional.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
+import static weather.clear.drivia.domain.drivingjoin.entity.DrivingJoinStatus.JOINED;
+import static weather.clear.drivia.domain.drivingjoin.entity.DrivingJoinStatus.WAITING;
 
 @ExtendWith(MockitoExtension.class)
-class DrivingServiceTest {
-
-    @Mock
-    CarRepository carRepository;
+class DrivingJoinServiceTest {
 
     @Mock
     MemberRepository memberRepository;
-
     @Mock
     DrivingRepository drivingRepository;
-
     @Mock
-    CarModelRepository carModelRepository;
+    DrivingJoinRepository drivingJoinRepository;
 
     MemberSignUpDto memberDto;
     CarRegistrationDto carDto;
@@ -46,7 +50,6 @@ class DrivingServiceTest {
     Car car;
     CarModel carModel;
     Driving driving;
-    DrivingJoin drivingJoin;
 
     @BeforeEach
     void initData() {
@@ -80,26 +83,35 @@ class DrivingServiceTest {
         carModel = new CarModel("아반떼 XD", "현대", "www");
         car = Car.of(member, carModel, carDto);
         driving = Driving.of(member, car, drivingDto);
-        drivingJoin = DrivingJoin.of(member, driving);
     }
+
     @Test
-    void createDriving() {
+    void drivingJoinRequest() {
         given(memberRepository.findById(1L)).willReturn(ofNullable(member));
+        given(drivingRepository.findById(2L)).willReturn(ofNullable(driving));
 
-        given(carModelRepository.findById(carDto.getCarModelId())).willReturn(of(carModel));
+        Member findMember = memberRepository.findById(1L).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+        Driving findDriving = drivingRepository.findById(2L).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 드라이빙입니다."));
+        DrivingJoin drivingJoin = DrivingJoin.of(findMember, findDriving);
 
-        given(carRepository.findById(3L)).willReturn(ofNullable(car));
+        given(drivingJoinRepository.save(drivingJoin)).willReturn(drivingJoin);
+        DrivingJoin savedDrivingJoin = drivingJoinRepository.save(drivingJoin);
 
-        given(drivingRepository.save(driving)).willReturn(driving);
+        assertThat(findMember).isEqualTo(member);
+        assertThat(findDriving).isEqualTo(driving);
+        assertThat(savedDrivingJoin).isEqualTo(drivingJoin);
+    }
 
-        Member findMember = memberRepository.findById(1L).get();
-        CarModel findCarModel = carModelRepository.findById(2L).get();
-        Car findCar = carRepository.findById(3L).get();
-        Driving savedDriving = drivingRepository.save(driving);
+    @Test
+    void drivingJoinResponse() {
+        DrivingJoin drivingJoin = DrivingJoin.of(member, driving);
+        given(drivingJoinRepository.findById(1L)).willReturn(ofNullable(drivingJoin));
 
-        assertThat(findMember.getUsername()).isEqualTo("김동영");
-        assertThat(findCarModel).isEqualTo(carModel);
-        assertThat(findCar).isEqualTo(car);
-        assertThat(savedDriving).isEqualTo(driving);
+        DrivingJoin findDrivingJoin = drivingJoinRepository.findById(1L).orElseThrow(
+                () -> new IllegalArgumentException("조인 요청을 취소하였습니다."));
+
+        assertThat(findDrivingJoin.getStatus()).isEqualTo(WAITING);
+        findDrivingJoin.joinResult(JOINED);
+        assertThat(findDrivingJoin.getStatus()).isEqualTo(JOINED);
     }
 }

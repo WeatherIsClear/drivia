@@ -1,11 +1,7 @@
 package weather.clear.drivia.domain.driving.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import weather.clear.drivia.domain.car.QCar;
-import weather.clear.drivia.domain.carmodel.QCarModel;
 import weather.clear.drivia.domain.driving.Driving;
-import weather.clear.drivia.domain.driving.QDriving;
-import weather.clear.drivia.domain.member.entity.QMember;
 
 import javax.persistence.EntityManager;
 
