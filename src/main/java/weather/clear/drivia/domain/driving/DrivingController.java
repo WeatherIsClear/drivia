@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import weather.clear.drivia.domain.driving.dto.CreatDrivingDto;
 import weather.clear.drivia.domain.driving.dto.DrivingDetailsDto;
+import weather.clear.drivia.domain.driving.dto.JoinDriverDrivingDetailsDto;
 import weather.clear.drivia.domain.driving.dto.OwnerDrivingDetailsDto;
 import weather.clear.drivia.domain.driving.service.DrivingQueryService;
 import weather.clear.drivia.domain.driving.service.DrivingService;

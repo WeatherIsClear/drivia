@@ -64,7 +64,7 @@ class DrivingServiceTest {
                 .memberId(1L)
                 .carModelId(2L)
                 .carNumber("서울30가0000")
-                .RegistrationDate(LocalDate.of(2021, 1, 1))
+                .registrationDate(LocalDate.of(2021, 1, 1))
                 .build();
 
         drivingDto = CreatDrivingDto.builder()

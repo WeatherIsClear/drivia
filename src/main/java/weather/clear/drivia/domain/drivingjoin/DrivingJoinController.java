@@ -22,6 +22,6 @@ public class DrivingJoinController {
 
     @PatchMapping("/driving-join")
     public void drivingJoinResponse(@RequestBody DrivingJoinResponseDto request) {
-        drivingJoinService.drivingJoinResponse(request);
+        drivingJoinService.driving빙JoinResponse(request);
     }
 }

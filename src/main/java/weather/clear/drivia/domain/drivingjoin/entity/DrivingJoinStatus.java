@@ -8,7 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum DrivingJoinStatus {
 
-    JOINED("조인 성공"), WAITING("대기중"), REJECT("거절됨"), EXPIRED("시간 만료");
+    JOINED("조인"), WAITING("대기중"), REJECT("거절"), EXPIRED("시간 만료");
 
     private final String joinStatus;
 

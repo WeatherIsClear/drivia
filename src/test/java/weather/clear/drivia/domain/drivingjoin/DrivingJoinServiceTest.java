@@ -1,10 +1,8 @@
 package weather.clear.drivia.domain.drivingjoin;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import weather.clear.drivia.domain.car.Car;
@@ -14,7 +12,6 @@ import weather.clear.drivia.domain.driving.Driving;
 import weather.clear.drivia.domain.driving.dto.CreatDrivingDto;
 import weather.clear.drivia.domain.driving.repository.DrivingRepository;
 import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoin;
-import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoinStatus;
 import weather.clear.drivia.domain.drivingjoin.repository.DrivingJoinRepository;
 import weather.clear.drivia.domain.member.MemberRepository;
 import weather.clear.drivia.domain.member.dto.MemberSignUpDto;
@@ -22,13 +19,9 @@ import weather.clear.drivia.domain.member.entity.Member;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import static java.util.Optional.*;
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 import static weather.clear.drivia.domain.drivingjoin.entity.DrivingJoinStatus.JOINED;
 import static weather.clear.drivia.domain.drivingjoin.entity.DrivingJoinStatus.WAITING;
@@ -67,7 +60,7 @@ class DrivingJoinServiceTest {
                 .memberId(1L)
                 .carModelId(2L)
                 .carNumber("서울30가0000")
-                .RegistrationDate(LocalDate.of(2021, 1, 1))
+                .registrationDate(LocalDate.of(2021, 1, 1))
                 .build();
 
         drivingDto = CreatDrivingDto.builder()

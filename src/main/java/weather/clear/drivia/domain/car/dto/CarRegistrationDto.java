@@ -16,5 +16,5 @@ public class CarRegistrationDto {
     private Long memberId;
     private Long carModelId;
     private String carNumber;
-    private LocalDate RegistrationDate;
+    private LocalDate registrationDate;
 }

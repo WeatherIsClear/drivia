@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import weather.clear.drivia.domain.driving.Driving;
-import weather.clear.drivia.domain.driving.JoinDriverDrivingDetailsDto;
+import weather.clear.drivia.domain.driving.dto.JoinDriverDrivingDetailsDto;
 import weather.clear.drivia.domain.driving.dto.DrivingDetailsDto;
 import weather.clear.drivia.domain.driving.dto.JoinDriverDto;
 import weather.clear.drivia.domain.driving.dto.OwnerDrivingDetailsDto;
@@ -32,13 +32,12 @@ public class DrivingQueryService {
     public DrivingDetailsDto drivingDetails(Long drivingId) {
 
         Driving driving = drivingRepository.drivingDetails(drivingId);
-
         List<DrivingJoin> drivingJoins = drivingJoinRepository.findWithDrivingDriver(driving);
 
         List<JoinDriverDto> joinedDrivers = drivingJoinToJoinDriverDto(drivingJoins, JOINED);
-        long countOfWaitingDrivers = countOfWaitingDrivers(drivingJoins);
+        int countOfWaitingDrivers = (int) countOfWaitingDrivers(drivingJoins);
 
-        return DrivingDetailsDto.of(driving, joinedDrivers, (int) countOfWaitingDrivers);
+        return DrivingDetailsDto.of(driving, joinedDrivers, countOfWaitingDrivers);
     }
 
     private long countOfWaitingDrivers(List<DrivingJoin> drivingJoins) {
@@ -49,7 +48,6 @@ public class DrivingQueryService {
     public JoinDriverDrivingDetailsDto joinDriverDrivingDetails(Long driverId, Long drivingId) {
 
         Driving driving = drivingRepository.drivingDetails(drivingId);
-
         List<DrivingJoin> drivingJoins = drivingJoinRepository.findWithDrivingDriver(driving);
 
         List<JoinDriverDto> joinedDrivers = drivingJoinToJoinDriverDto(drivingJoins, JOINED);
@@ -68,7 +66,6 @@ public class DrivingQueryService {
     public OwnerDrivingDetailsDto ownerDrivingDetails(Long drivingId) {
 
         Driving driving = drivingRepository.drivingDetails(drivingId);
-
         List<DrivingJoin> drivingJoins = drivingJoinRepository.findWithDrivingDriver(driving);
 
         List<JoinDriverDto> joinedDrivers = drivingJoinToJoinDriverDto(drivingJoins, JOINED);

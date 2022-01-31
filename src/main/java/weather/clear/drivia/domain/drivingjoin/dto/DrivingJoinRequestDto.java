@@ -5,6 +5,6 @@ import lombok.Getter;
 @Getter
 public class DrivingJoinRequestDto {
 
-    private Long memberId;
+    private Long driverId;
     private Long drivingId;
 }

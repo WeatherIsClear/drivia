@@ -1,8 +1,8 @@
-package weather.clear.drivia.domain.driving;
+package weather.clear.drivia.domain.driving.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import weather.clear.drivia.domain.driving.dto.JoinDriverDto;
+import weather.clear.drivia.domain.driving.Driving;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,7 +26,7 @@ public class JoinDriverDrivingDetailsDto {
     private List<JoinDriverDto> joinedDrivers;
 
     public static JoinDriverDrivingDetailsDto of(Driving driving,
-                                             List<JoinDriverDto> joinedDrivers, String myJoinStatus) {
+                                                 List<JoinDriverDto> joinedDrivers, String myJoinStatus) {
         return JoinDriverDrivingDetailsDto.builder()
                 .drivingId(driving.getId())
                 .ownerId(driving.getMember().getId())

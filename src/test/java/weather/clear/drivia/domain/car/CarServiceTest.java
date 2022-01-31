@@ -49,7 +49,7 @@ class CarServiceTest {
         CarRegistrationDto carDto = CarRegistrationDto.builder()
                 .carModelId(2L)
                 .carNumber("서울30가0000")
-                .RegistrationDate(LocalDate.of(2021, 1, 1))
+                .registrationDate(LocalDate.of(2021, 1, 1))
                 .build();
 
         CarModel carModel = new CarModel("", "", "");

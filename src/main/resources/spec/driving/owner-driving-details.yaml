@@ -1,0 +1,120 @@
+openapi: "3.0.2"
+info:
+  title: owner-driving-details-information
+  version: "1.0"
+servers:
+  - url: http://localhost:8080
+paths:
+  /owner/driving/{drivingId}:
+    get:
+      description: owner-driving-details-information
+      operationId: ownerDrivingDetails
+      parameters:
+        - name: drivingId
+          in: path
+          description: "driving-id"
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  drivingId:
+                    type: integer
+                    format: int64
+                    example: 3
+                  ownerId:
+                    type: integer
+                    format: int64
+                    example: 1
+                  nickname:
+                    type: string
+                    example: "카오버"
+                  profilePicture:
+                    type: string
+                    default: null
+                  carPicture:
+                    type: string
+                    example: "car-picture"
+                  countOfJoinedDrivers:
+                    type: integer
+                    format: int32
+                    example: 2
+                  countOfMaximumDrivers:
+                    type: integer
+                    format: int32
+                    example: 4
+                  countOfWaitingDrivers:
+                    type: integer
+                    format: int32
+                    example: 10
+                  departDateTime:
+                    type: string
+                    format: date
+                    example: "2022-02-01T12:00"
+                  departLocation:
+                    type: string
+                    example: "서울시 광진구 화양동"
+                  destination:
+                    type: string
+                    example: "대구광역시 달서구 상인시"
+                  expectedTime:
+                    type: integer
+                    format: int32
+                    example: 5
+                  joinedDrivers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        drivingJoinId:
+                          type: integer
+                          format: int64
+                          example: 4
+                        driverId:
+                          type: integer
+                          format: int64
+                          example: 5
+                        nickname:
+                          type: string
+                          example: "조인된드라이버"
+                        profilePicture:
+                          type: string
+                          default: null
+                  waitingDrivers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        drivingJoinId:
+                          type: integer
+                          format: int64
+                          example: 4
+                        driverId:
+                          type: integer
+                          format: int64
+                          example: 6
+                        nickname:
+                          type: string
+                          example: "대기중인드라이버"
+                        profilePicture:
+                          type: string
+                          default: null
+        default:
+          description: ERROR
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "존재하지 않는 드라이빙입니다."
+
