@@ -1,0 +1,53 @@
+openapi: "3.0.2"
+info:
+  title: driving-create
+  version: "1.0"
+servers:
+  - url: http://localhost:8080
+paths:
+  /driving:
+    post:
+      description: driving-create
+      operationId: createDriving
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                memberId:
+                  type: integer
+                  format: int64
+                  example: 1
+                carId:
+                  type: integer
+                  format: int64
+                  example: 2
+                departDateTime:
+                  type: string
+                  format: date
+                  example: "2021-02-01T12:00"
+                departLocation:
+                  type: string
+                  example: "서울시 광진구 화양동"
+                destination:
+                  type: string
+                  example: "대구광역시 달서구 상인동"
+                maximumDriver:
+                  type: integer
+                  format: int32
+                  example: 4
+      responses:
+        '200':
+          description: OK
+        default:
+          description: ERROR
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "차량이 등록되지 않았습니다."

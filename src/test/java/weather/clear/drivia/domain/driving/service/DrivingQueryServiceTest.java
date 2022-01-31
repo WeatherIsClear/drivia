@@ -22,7 +22,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static java.util.Optional.*;
 import static java.util.stream.Collectors.toList;
@@ -69,7 +68,7 @@ class DrivingQueryServiceTest {
                 .memberId(1L)
                 .carModelId(2L)
                 .carNumber("서울30가0000")
-                .RegistrationDate(LocalDate.of(2021, 1, 1))
+                .registrationDate(LocalDate.of(2021, 1, 1))
                 .build();
 
         drivingDto = CreatDrivingDto.builder()
