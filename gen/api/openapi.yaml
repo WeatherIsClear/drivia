@@ -1,0 +1,135 @@
+openapi: 3.0.2
+info:
+  title: joinDriver-driving-details-information
+  version: "1.0"
+servers:
+- url: http://localhost:8080
+paths:
+  /driver/driving/{driverId}/{drivingId}:
+    get:
+      description: joinDriver-driving-details-information
+      operationId: joinDriverDrivingDetails
+      parameters:
+      - description: driver_id
+        explode: false
+        in: path
+        name: driverId
+        required: true
+        schema:
+          example: 5
+          format: int64
+          type: integer
+        style: simple
+      - description: driving-id
+        explode: false
+        in: path
+        name: drivingId
+        required: true
+        schema:
+          example: 3
+          format: int64
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+          description: OK
+      x-accepts: application/json
+components:
+  schemas:
+    inline_response_200_joinedDrivers:
+      example:
+        profilePicture: "null"
+        driverId: 5
+        drivingJoinId: 4
+        nickname: 개5판분전
+      properties:
+        drivingJoinId:
+          example: 4
+          format: int64
+          type: integer
+        driverId:
+          example: 5
+          format: int64
+          type: integer
+        nickname:
+          example: 개5판분전
+          type: string
+        profilePicture:
+          default: "null"
+          type: string
+      type: object
+    inline_response_200:
+      example:
+        countOfMaximumDrivers: 4
+        drivingId: 3
+        joinedDrivers:
+        - profilePicture: "null"
+          driverId: 5
+          drivingJoinId: 4
+          nickname: 개5판분전
+        - profilePicture: "null"
+          driverId: 5
+          drivingJoinId: 4
+          nickname: 개5판분전
+        destination: 대구광역시 달서구 상인시
+        carPicture: car-picture
+        ownerId: 1
+        countOfJoinedDrivers: 2
+        departDateTime: 2000-01-23
+        profilePicture: "null"
+        expectedTime: 5
+        myJoinStatus: 조인
+        nickname: 개5판분전
+        departLocation: 서울시 광진구 화양동
+      properties:
+        drivingId:
+          example: 3
+          format: int64
+          type: integer
+        ownerId:
+          example: 1
+          format: int64
+          type: integer
+        nickname:
+          example: 개5판분전
+          type: string
+        profilePicture:
+          default: "null"
+          type: string
+        carPicture:
+          example: car-picture
+          type: string
+        countOfJoinedDrivers:
+          example: 2
+          format: int32
+          type: integer
+        countOfMaximumDrivers:
+          example: 4
+          format: int32
+          type: integer
+        myJoinStatus:
+          example: 조인
+          type: string
+        departDateTime:
+          format: date
+          type: string
+        departLocation:
+          example: 서울시 광진구 화양동
+          type: string
+        destination:
+          example: 대구광역시 달서구 상인시
+          type: string
+        expectedTime:
+          example: 5
+          format: int32
+          type: integer
+        joinedDrivers:
+          items:
+            $ref: '#/components/schemas/inline_response_200_joinedDrivers'
+          type: array
+      type: object
+

@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import weather.clear.drivia.domain.car.dto.RegistrationCarDto;
+import weather.clear.drivia.domain.car.dto.CarRegistrationDto;
 import weather.clear.drivia.domain.carmodel.CarModel;
 import weather.clear.drivia.domain.member.entity.Member;
 
@@ -45,7 +45,7 @@ public class Car {
         this.carModel = carModel;
     }
 
-    public static Car of(Member member, CarModel carModel, RegistrationCarDto dto) {
+    public static Car of(Member member, CarModel carModel, CarRegistrationDto dto) {
         return Car.builder()
                 .member(member)
                 .carNumber(dto.getCarNumber())

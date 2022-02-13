@@ -1,7 +1,6 @@
 package weather.clear.drivia.domain.carmodel;
 
 import lombok.*;
-import weather.clear.drivia.domain.car.dto.RegistrationCarDto;
 
 import javax.persistence.*;
 

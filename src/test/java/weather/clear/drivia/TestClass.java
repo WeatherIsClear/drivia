@@ -22,9 +22,9 @@ public class TestClass {
 
     @Test
     void test3() {
-        System.out.println(JOIN == JOIN);
-        System.out.println(JOIN.equals(JOIN));
-        System.out.println(JOIN.equals(REJECT));
-        System.out.println(JOIN == REJECT);
+        System.out.println(JOINED == JOINED);
+        System.out.println(JOINED.equals(JOINED));
+        System.out.println(JOINED.equals(REJECT));
+        System.out.println(JOINED == REJECT);
     }
 }
