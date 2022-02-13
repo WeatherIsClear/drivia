@@ -13,9 +13,8 @@ import weather.clear.drivia.domain.carmodel.CarModelRepository;
 import weather.clear.drivia.domain.driving.dto.CreatDrivingDto;
 import weather.clear.drivia.domain.driving.dto.JoinDriverDto;
 import weather.clear.drivia.domain.driving.repository.DrivingRepository;
-import weather.clear.drivia.domain.drivingjoin.DrivingJoinRepository;
+import weather.clear.drivia.domain.drivingjoin.repository.DrivingJoinRepository;
 import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoin;
-import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoinStatus;
 import weather.clear.drivia.domain.member.MemberRepository;
 import weather.clear.drivia.domain.member.dto.MemberSignUpDto;
 import weather.clear.drivia.domain.member.entity.Member;
@@ -83,7 +82,7 @@ class DrivingServiceTest {
                 .departDateTime(LocalDateTime.of(2022, 1, 12, 12, 0))
                 .departLocation("서울시 광진구 화양동 동일로28길")
                 .destination("대구광역시 달성군 다사읍 서재로120")
-                .totalHeadCount(4)
+                .maximumDriver(4)
                 .build();
 
         member = Member.of(memberDto);
@@ -133,7 +132,7 @@ class DrivingServiceTest {
         given(drivingJoinRepository.findByDriving(findDriving)).willReturn(list);
         List<DrivingJoin> drivingJoins = drivingJoinRepository.findByDriving(findDriving);
 
-        int nowHeadCount = findDriving.drivingJoinCount(drivingJoins, JOIN).intValue();
+        int nowHeadCount = findDriving.drivingJoinCount(drivingJoins, JOINED).intValue();
         int waitingJoinCount = findDriving.drivingJoinCount(drivingJoins, WAITING).intValue();
 
         assertThat(findDriving).isEqualTo(driving);
@@ -162,7 +161,7 @@ class DrivingServiceTest {
         given(drivingJoinRepository.findWithDrivingDriver(findDriving)).willReturn(list);
         List<DrivingJoin> drivingJoins = drivingJoinRepository.findWithDrivingDriver(findDriving);
 
-        List<JoinDriverDto> joinedDrivers = findDriving.joinDrivers(drivingJoins, JOIN);
+        List<JoinDriverDto> joinedDrivers = findDriving.joinDrivers(drivingJoins, JOINED);
         List<JoinDriverDto> waitingDrivers = findDriving.joinDrivers(drivingJoins, WAITING);
 
         assertThat(findDriving).isEqualTo(driving);

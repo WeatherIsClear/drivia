@@ -21,5 +21,5 @@ public class CreatDrivingDto {
 
     private String destination;
 
-    private int totalHeadCount;
+    private int maximumDriver;
 }

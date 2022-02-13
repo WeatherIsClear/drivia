@@ -9,7 +9,7 @@ import weather.clear.drivia.domain.driving.repository.DrivingRepository;
 import weather.clear.drivia.domain.drivingjoin.dto.DrivingJoinRequestDto;
 import weather.clear.drivia.domain.drivingjoin.dto.DrivingJoinResponseDto;
 import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoin;
-import weather.clear.drivia.domain.drivingjoin.entity.DrivingJoinStatus;
+import weather.clear.drivia.domain.drivingjoin.repository.DrivingJoinRepository;
 import weather.clear.drivia.domain.member.MemberRepository;
 import weather.clear.drivia.domain.member.entity.Member;
 

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 
 public enum DrivingJoinStatus {
 
-    JOIN, WAITING, REJECT, EXPIRED;
+    JOINED, WAITING, REJECT, EXPIRED;
 
     @JsonCreator
     public static DrivingJoinStatus from(String status) {
