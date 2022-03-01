@@ -1,6 +1,8 @@
 package weather.clear.drivia.entity.userEntity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import weather.clear.drivia.entity.insuranceEntity.Insurance;
 
@@ -12,7 +14,7 @@ import java.util.List;
 
 @Entity
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
     @Id @Getter

@@ -1,7 +1,9 @@
 package weather.clear.drivia.entity.drivingEntity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import weather.clear.drivia.entity.userEntity.User;
 
 import javax.persistence.*;
@@ -10,7 +12,7 @@ import java.time.LocalTime;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Driving {
 
     @Id @GeneratedValue

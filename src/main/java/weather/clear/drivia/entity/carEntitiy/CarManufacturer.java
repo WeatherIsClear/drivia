@@ -1,5 +1,6 @@
 package weather.clear.drivia.entity.carEntitiy;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +10,7 @@ import javax.persistence.Id;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CarManufacturer {
 
     @Id @GeneratedValue

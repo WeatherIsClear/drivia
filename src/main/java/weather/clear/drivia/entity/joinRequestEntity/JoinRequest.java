@@ -1,5 +1,6 @@
 package weather.clear.drivia.entity.joinRequestEntity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import weather.clear.drivia.entity.drivingEntity.Driving;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class JoinRequest {
 
     @Id @GeneratedValue

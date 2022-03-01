@@ -1,6 +1,8 @@
 package weather.clear.drivia.entity.paymentEntity;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import weather.clear.drivia.entity.userEntity.User;
 
@@ -9,7 +11,7 @@ import java.time.LocalTime;
 
 @Entity
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Payment {
 
     @Id @GeneratedValue

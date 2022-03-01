@@ -1,7 +1,6 @@
 package weather.clear.drivia.entity.driverEntity;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import weather.clear.drivia.entity.drivingEntity.Driving;
 import weather.clear.drivia.entity.insuranceEntity.Insurance;
 import weather.clear.drivia.entity.userEntity.User;
@@ -10,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Driver {
 
     @Id @GeneratedValue
