@@ -2,7 +2,7 @@ spring:
   profiles:
     active: local
   datasource:
-    url: jdbc:h2:tcp://localhost/~/driving
+    url: jdbc:h2:tcp://localhost/~/drivia
     username: sa
     password:
     driver-class-name: org.h2.Driver
