@@ -19,7 +19,7 @@ public class Driving {
     private int maxDriver;
     private DrivingStatus status;
     private final User owner;
-
+    
     private final List<Driver> drivers = new ArrayList<>();
     private final List<Join> joins = new ArrayList<>();
 
