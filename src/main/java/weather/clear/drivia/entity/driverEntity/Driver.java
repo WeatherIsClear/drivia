@@ -28,4 +28,13 @@ public class Driver {
     @OneToOne
     @JoinColumn(name = "insurance_id")
     private Insurance insurance;
+
+    // == 연관관계 편의 메서드 == //
+    public void joinDriving(Driving driving) {
+        if(this.driving != null) {
+            this.driving.getDrivers().remove(this);
+        }
+        this.driving = driving;
+        driving.getDrivers().add(this);
+    }
 }

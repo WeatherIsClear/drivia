@@ -26,4 +26,10 @@ public class Insurance {
     @OneToOne
     @JoinColumn(name = "payment_id")
     private Payment payment;
+
+    // == 연관관계 편의 메서드 == //
+    public void addInsurance(User user) {
+        this.user = user;
+        user.getInsurances().add(this);
+    }
 }
